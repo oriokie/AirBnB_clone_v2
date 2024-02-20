@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
 
             for attr in attributes:
                 key, value = attr.split("=")
-                if key in ignored_attrs: 
+                if key in ignored_attrs:
                     continue
                 value = eval(value)
                 if isinstance(value, str):
