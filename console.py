@@ -118,8 +118,8 @@ class HBNBCommand(cmd.Cmd):
         ignored_attrs = ('id', 'created_at', 'updated_at', '__class__')
         try:
             if not args:
-                raise SyntaxError ("** class name missing **")
-            
+                raise SyntaxError("** class name missing **")
+
             """Splitting the args into by spaces"""
             arg_list = args.split()
 
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
             """Checcking if the class exists"""
             if class_name not in HBNBCommand.classes:
                 raise SyntaxError("** class doesn't exist **")
-            
+
             """Parse attributes to create keyword arguments"""
             kw_args = {}
 
@@ -142,8 +142,8 @@ class HBNBCommand(cmd.Cmd):
                 if isinstance(value, str):
                     value = value.replace("_", " ").replace("\"", "")
                 kw_args[key] = value
-            
-            """Creating an instance of the class witht he provided attributes"""
+
+            """Creating an instance of the class using provided attributes"""
             new_instance = HBNBCommand.classes[class_name](**kw_args)
             new_instance.save()
             print(new_instance.id)
@@ -349,6 +349,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
