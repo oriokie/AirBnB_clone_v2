@@ -13,12 +13,8 @@ class City(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == 'db':
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship("Place", cascade="all, delete",
-                              backref="cities")
+        #places = relationship("Place", cascade="all, delete",
+                              #backref="cities")
     else:
         state_id = ""
         name = ""
-
-    def __init__(self, *args, **kwargs):
-        """ Initialize City """
-        super().__init__(*args, **kwargs)
