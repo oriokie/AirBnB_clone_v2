@@ -16,14 +16,3 @@ class State(BaseModel, Base):
                               cascade='all, delete, delete-orphan')
     else:
         name = ""
-
-        @property
-        def cities(self):
-            """ returns the list of City instances with state_id """
-            from models import storage
-            cities = []
-            for city in storage.all(City).values():
-                if city.state_id == self.id:
-                    cities.append(city)
-            return cities
-    
