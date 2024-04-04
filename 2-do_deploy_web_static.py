@@ -3,10 +3,26 @@
 Fabric script (based on the file 1-pack_web_static.py)
 that distributes an archive to your web servers
 """
-from fabric.api import run, put, env
+from fabric.api import run, put, env, local
 from os.path import exists
+from os import path
+from datetime import datetime
 
 env.hosts = ['100.26.232.74', '100.25.158.41']
+
+
+def do_pack():
+    """ Generates a .tgz archive from web_static folder """
+    try:
+        if not path.exists("versions"):
+            local('mkdir versions')
+        time = datetime.now()
+        format = "%Y%m%d%H%M%S"
+        file = 'versions/web_static_{}.tgz'.format(time.strftime(format))
+        local('tar -cvzf {} web_static'.format(file))
+        return file
+    except Exception:
+        return None
 
 
 def do_deploy(archive_path):
