@@ -5,6 +5,7 @@ from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import getenv
+from models import storage
 
 
 class State(BaseModel, Base):
@@ -16,3 +17,14 @@ class State(BaseModel, Base):
                               cascade='all, delete, delete-orphan')
     else:
         name = ""
+
+
+@property
+def cities(self):
+    """ Getter attribute that returns the list of City instances """
+    all_cities = storage.all(City)
+    cities_list = []
+    for city in all_cities.values():
+        if city.state_id == self.id:
+            cities_list.append(city)
+    return cities_list
